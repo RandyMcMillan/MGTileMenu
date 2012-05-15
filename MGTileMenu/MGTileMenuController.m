@@ -1141,6 +1141,8 @@ CGGradientRef MGCreateGradientWithColors(UIColor *topColorRGB, UIColor *bottomCo
 		CGRect menuViewFrame = self.view.frame;
 		menuViewFrame.origin.x += tranlation.x;
 		menuViewFrame.origin.y += tranlation.y;
+		//we ensure that the menu does fully overlap ( contains within ) the outer rect
+		menuViewFrame = MGMinimallyOverlapRects(menuViewFrame, _parentView.bounds,MG_PARENTVIEW_EDGE_INSET );
 		[self.view setFrame:menuViewFrame];
 		
 		//reset the translation as we have read the value
