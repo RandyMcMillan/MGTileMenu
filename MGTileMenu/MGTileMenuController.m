@@ -214,7 +214,7 @@ NSString *MGTileMenuDidSwitchToPageNotification;
 			[tileButton setBackgroundImage:tileImage forState:UIControlStateNormal];
 			[tileButton setBackgroundImage:tileHighlightedImage forState:UIControlStateHighlighted];
 			
-			//bharath2020 - added this - to enable tap and drag on ellipsis button to move the menu
+			//enable tap and drag on ellipsis button to move the menu
 			if( _enableTapDragOnEllipsis )
 			{
 				//listen to drag events on ellipsis button
@@ -1124,7 +1124,6 @@ CGGradientRef MGCreateGradientWithColors(UIColor *topColorRGB, UIColor *bottomCo
 }
 
 
-//bharath2020-added this
 - (void)tapDrag:(UIPanGestureRecognizer*)panGesture
 {
 	if( panGesture.state == UIGestureRecognizerStateEnded )
