@@ -61,6 +61,7 @@ NSString *MGTileMenuDidSwitchToPageNotification;
 @synthesize pageButtonImage = _pageButtonImage;
 @synthesize shouldMoveToStayVisibleAfterRotation = _shouldMoveToStayVisibleAfterRotation;
 @synthesize closeButtonVisible = _closeButtonVisible;
+@synthesize enableTapDragOnEllipsis = _enableTapDragOnEllipsis;
 
 
 #pragma mark - Creation and destruction
@@ -112,6 +113,7 @@ NSString *MGTileMenuDidSwitchToPageNotification;
 						  nil];
 		
 		_singlePageMaxTiles = NO;
+		_enableTapDragOnEllipsis = NO;
     }
     return self;
 }
@@ -211,6 +213,15 @@ NSString *MGTileMenuDidSwitchToPageNotification;
 			UIImage *tileHighlightedImage = [self tileBackgroundImageHighlighted:YES];
 			[tileButton setBackgroundImage:tileImage forState:UIControlStateNormal];
 			[tileButton setBackgroundImage:tileHighlightedImage forState:UIControlStateHighlighted];
+			
+			//bharath2020 - added this - to enable tap and drag on ellipsis button to move the menu
+			if( _enableTapDragOnEllipsis )
+			{
+				//listen to drag events on ellipsis button
+				UIPanGestureRecognizer *dragGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(tapDrag:)];
+				[tileButton addGestureRecognizer:dragGesture];
+			}
+			
 		} else {
 			j = [[_animationOrder objectAtIndex:i] integerValue];
 			if (_rightHanded) {
@@ -1112,5 +1123,29 @@ CGGradientRef MGCreateGradientWithColors(UIColor *topColorRGB, UIColor *bottomCo
 	}
 }
 
+
+//bharath2020-added this
+- (void)tapDrag:(UIPanGestureRecognizer*)panGesture
+{
+	if( panGesture.state == UIGestureRecognizerStateEnded )
+	{
+		//drag end - so reset the highlight
+		[(UIButton*)panGesture.view setHighlighted:NO];
+	}
+	else 
+	{
+		//drag start or in movement
+		[(UIButton*)panGesture.view setHighlighted:YES];
+		
+		CGPoint tranlation = [panGesture translationInView:self.view];
+		CGRect menuViewFrame = self.view.frame;
+		menuViewFrame.origin.x += tranlation.x;
+		menuViewFrame.origin.y += tranlation.y;
+		[self.view setFrame:menuViewFrame];
+		
+		//reset the translation as we have read the value
+		[panGesture setTranslation:CGPointZero inView:self.view];
+	}
+}
 
 @end

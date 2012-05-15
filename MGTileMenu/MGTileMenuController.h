@@ -46,6 +46,7 @@
 @property (nonatomic, strong) UIImage *pageButtonImage; // default: nil (which renders an ellipsis "...")
 @property (nonatomic) BOOL shouldMoveToStayVisibleAfterRotation; // whether the menu should automatically move to remain fully visible after the device has been rotated (default: YES)
 @property (nonatomic) BOOL closeButtonVisible; // whether the close button is visible (default: YES). If NO, the user can still dismiss the menu by tapping outside its bounds (which you can also disable via the tileMenuShouldDismiss: delegate method)
+@property (nonatomic) BOOL enableTapDragOnEllipsis;// enables the user to tap and drag on Ellipsis button to move the Menu View 
 
 
 // Creation.

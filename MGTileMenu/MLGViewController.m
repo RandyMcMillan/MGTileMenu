@@ -19,7 +19,7 @@
 
 - (NSInteger)numberOfTilesInMenu:(MGTileMenuController *)tileMenu
 {
-	return 9;
+	return 11;
 }
 
 
@@ -153,6 +153,8 @@
 			if (!tileController) {
 				// Create a tileController.
 				tileController = [[MGTileMenuController alloc] initWithDelegate:self];
+				//bharath2020 - lets enable the tap drag feature
+				tileController.enableTapDragOnEllipsis = YES;
 				tileController.dismissAfterTileActivated = NO; // to make it easier to play with in the demo app.
 			}
 			// Display the TileMenu.
