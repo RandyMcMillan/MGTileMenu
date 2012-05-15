@@ -19,7 +19,7 @@
 
 - (NSInteger)numberOfTilesInMenu:(MGTileMenuController *)tileMenu
 {
-	return 6;
+	return 9;
 }
 
 
